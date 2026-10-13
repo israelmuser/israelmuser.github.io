@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Bad Ice Cream: el helado más fiel del mundo.">
+  <title>Bad Ice Cream — Antojos sin reglas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700;900&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #111; --cream: #f4eade; --pink: #f9a8d4; --orange: #f25f22; 
+      --yellow: #facc15; --blue: #60a5fa; --green: #4ade80; --white: #fff;
+    }
+    * { box-sizing: border-box; } 
+    html { scroll-behavior: smooth; }
+    
+    body {
+      margin: 0; background-color: var(--cream); color: var(--ink);
+      font-family: "DM Sans", sans-serif; overflow-x: hidden;
+      background-image: radial-gradient(var(--orange) 1.5px, transparent 1.5px);
+      background-size: 35px 35px;
+    }
+    a { color: inherit; text-decoration: none; } 
+    button { font: inherit; cursor: pointer; border: none; }
+    
+    /* Frutas de fondo general */
+    .floating-decor {
+      position: absolute; font-size: 40px; user-select: none; pointer-events: none;
+      animation: float 6s ease-in-out infinite; z-index: -1; opacity: 0.8;
+    }
+    @keyframes float {
+      0% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(15deg); }
+      100% { transform: translateY(0px) rotate(0deg); }
+    }
+    .f1 { top: 15%; left: 5%; animation-delay: 0s; font-size: 60px; }
+    .f2 { top: 25%; right: 8%; animation-delay: 1s; font-size: 50px; }
+    .f3 { top: 45%; left: 10%; animation-delay: 2s; font-size: 45px; }
+    .f4 { top: 60%; right: 10%; animation-delay: 0.5s; font-size: 70px; }
+    .f5 { top: 75%; left: 15%; animation-delay: 1.5s; font-size: 55px; }
+    .f6 { top: 85%; right: 5%; animation-delay: 2.5s; font-size: 65px; }
+
+    .topline { background: var(--ink); color: var(--yellow); text-align: center; padding: 12px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; font-size: 13px; }
+    
+    header { height: 90px; display: flex; align-items: center; justify-content: space-between; padding: 0 5%; background: var(--white); border-bottom: 4px solid var(--ink); position: sticky; top: 0; z-index: 40; box-shadow: 0 4px 0 rgba(0,0,0,0.1); }
+    .logo { font-weight: 900; font-size: 28px; line-height: 0.9; text-transform: uppercase; }
+    .logo span { color: var(--orange); }
+    
+    nav { display: flex; gap: 20px; align-items: center; font-weight: 900; text-transform: uppercase; }
+    .nav-cta { background: var(--yellow); border: 3px solid var(--ink); padding: 12px 20px; border-radius: 8px; box-shadow: 4px 4px 0 var(--ink); transition: 0.2s; display: flex; align-items: center; gap: 8px; }
+    .nav-cta:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--ink); }
+    .cart-count { background: var(--ink); color: var(--white); padding: 2px 8px; border-radius: 20px; font-size: 14px; }
+
+    .banner-phrase { background: var(--orange); color: var(--white); text-align: center; padding: 60px 5%; border-top: 4px solid var(--ink); border-bottom: 4px solid var(--ink); font-family: "Playfair Display", serif; font-size: clamp(30px, 5vw, 60px); font-weight: 900; font-style: italic; line-height: 1.1; text-shadow: 3px 3px 0 var(--ink); }
+    .banner-phrase.blue { background: var(--blue); }
+    .banner-phrase.pink { background: var(--pink); color: var(--ink); text-shadow: 3px 3px 0 var(--white); }
+    
+    .hero { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 100px 5%; min-height: 70vh; position: relative; z-index: 1; }
+    .hero h1 { font-family: "Playfair Display", serif; font-size: clamp(60px, 10vw, 120px); line-height: 0.9; margin: 0 0 20px; color: var(--ink); text-shadow: 4px 4px 0 var(--white); }
+    .hero p { font-size: 22px; font-weight: 700; max-width: 600px; margin-bottom: 40px; background: var(--white); padding: 10px 20px; border: 3px solid var(--ink); display: inline-block; transform: rotate(-2deg); box-shadow: 6px 6px 0 var(--ink); }
+
+    .corporate { background: var(--white); padding: 80px 5%; border-bottom: 4px solid var(--ink); border-top: 4px solid var(--ink); position: relative; z-index: 2; }
+    .corp-title { text-align: center; font-size: 38px; font-weight: 900; text-transform: uppercase; margin-bottom: 50px; background: var(--ink); color: var(--yellow); padding: 15px; display: inline-block; transform: rotate(1deg); }
+    .corp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-bottom: 50px; }
+    .corp-card { background: var(--cream); border: 3px solid var(--ink); padding: 30px; box-shadow: 6px 6px 0 var(--pink); border-radius: 12px; }
+    .corp-card h3 { font-size: 24px; font-weight: 900; margin-top: 0; color: var(--orange); text-transform: uppercase; }
+    .corp-card p { font-size: 16px; font-weight: 700; line-height: 1.5; }
+    .branch-photo { border: 4px solid var(--ink); height: 400px; background: url('https://images.unsplash.com/photo-1559925393-8be0ec4767c8?auto=format&fit=crop&w=1200&q=80') center/cover; box-shadow: 10px 10px 0 var(--blue); border-radius: 12px; margin-top: 40px; position: relative; }
+    .branch-label { position: absolute; bottom: 20px; left: 20px; background: var(--yellow); border: 3px solid var(--ink); padding: 10px 20px; font-weight: 900; font-size: 20px; text-transform: uppercase; box-shadow: 4px 4px 0 var(--ink); }
+
+    .menu-section { padding: 100px 5%; position: relative; z-index: 2; }
+    .menu-title { text-align: center; font-family: "Playfair Display", serif; font-size: clamp(50px, 8vw, 90px); font-weight: 900; margin: 0 0 60px; color: var(--ink); text-shadow: 4px 4px 0 var(--yellow), 8px 8px 0 var(--pink); }
+    
+    .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 50px; }
+    .product-card { background: var(--white); border: 4px solid var(--ink); border-radius: 16px; padding: 20px; box-shadow: 8px 8px 0 var(--orange); transition: 0.3s; position: relative; display: flex; flex-direction: column; }
+    .product-card:hover { transform: translate(-5px, -5px); box-shadow: 15px 15px 0 var(--ink); }
+    .product-img { width: 100%; height: 280px; object-fit: cover; border: 3px solid var(--ink); border-radius: 8px; background: var(--pink); }
+    .product-info { padding-top: 20px; flex-grow: 1; display: flex; flex-direction: column; }
+    .product-name { font-size: 26px; font-weight: 900; margin: 0 0 10px; text-transform: uppercase; }
+    .product-desc { font-size: 15px; font-weight: 700; margin-bottom: 20px; flex-grow: 1; }
+    .price-row { display: flex; justify-content: space-between; align-items: center; }
+    .price { font-size: 24px; font-weight: 900; color: var(--orange); background: var(--ink); padding: 5px 15px; border-radius: 20px; color: var(--white); }
+    
+    .btn-add { background: var(--green); border: 3px solid var(--ink); padding: 12px 20px; font-weight: 900; text-transform: uppercase; border-radius: 8px; box-shadow: 4px 4px 0 var(--ink); transition: 0.2s; font-size: 16px; }
+    .btn-add:hover { background: var(--yellow); transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--ink); }
+
+    /* NUEVA SECCIÓN: EXPLOSIÓN DE FRUTAS (REEMPLAZA AL CUADRO FEO) */
+    .fruit-explosion-section {
+      position: relative; padding: 120px 5%; background: var(--green);
+      border-top: 5px solid var(--ink); border-bottom: 5px solid var(--ink);
+      display: flex; justify-content: center; align-items: center;
+      min-height: 550px; overflow: hidden; z-index: 2;
+      box-shadow: inset 0 0 0 15px var(--pink);
+    }
+    .explosion-text {
+      position: relative; z-index: 10; background: var(--white);
+      padding: 40px 60px; border: 6px solid var(--ink);
+      box-shadow: 20px 20px 0 var(--orange); transform: rotate(-4deg);
+      text-align: center; max-width: 900px;
+    }
+    .explosion-text h2 {
+      font-family: "Playfair Display", serif; font-size: clamp(35px, 6vw, 85px);
+      font-weight: 900; color: var(--ink); margin: 0; line-height: 1; text-transform: uppercase;
+    }
+    .explosion-text h2 span { color: var(--blue); text-shadow: 3px 3px 0 var(--ink); }
+    
+    .inner-fruit {
+      position: absolute; user-select: none; pointer-events: none;
+      animation: popAndFloat 3s ease-in-out infinite alternate;
+    }
+    @keyframes popAndFloat {
+      0% { transform: translateY(0) scale(1) rotate(0deg); }
+      100% { transform: translateY(-40px) scale(1.1) rotate(15deg); }
+    }
+    
+    .if-1 { top: 8%; left: 8%; font-size: 80px; animation-delay: 0.1s; }
+    .if-2 { top: 15%; left: 25%; font-size: 60px; animation-delay: 0.4s; }
+    .if-3 { top: 10%; right: 25%; font-size: 90px; animation-delay: 0.2s; }
+    .if-4 { top: 20%; right: 8%; font-size: 75px; animation-delay: 0.7s; }
+    .if-5 { bottom: 15%; left: 10%; font-size: 95px; animation-delay: 0.5s; transform: rotate(-20deg); }
+    .if-6 { bottom: 10%; left: 30%; font-size: 65px; animation-delay: 0.8s; }
+    .if-7 { bottom: 25%; right: 22%; font-size: 85px; animation-delay: 0.3s; }
+    .if-8 { bottom: 12%; right: 10%; font-size: 100px; animation-delay: 0.6s; }
+    .if-9 { top: 45%; left: 2%; font-size: 70px; animation-delay: 0.9s; }
+    .if-10 { top: 50%; right: 2%; font-size: 80px; animation-delay: 1.1s; }
+    .if-11 { top: 5%; left: 50%; font-size: 65px; animation-delay: 1.2s; }
+    .if-12 { bottom: 5%; left: 55%; font-size: 75px; animation-delay: 1.4s; }
+
+    footer { background: var(--ink); color: var(--cream); padding: 80px 5% 40px; text-align: center; position: relative; z-index: 2; }
+    .footer-quote { font-family: "Playfair Display", serif; font-size: clamp(30px, 6vw, 60px); color: var(--yellow); margin-bottom: 10px; font-style: italic; }
+    .footer-subquote { font-size: 24px; font-weight: 900; color: var(--pink); margin-bottom: 60px; text-transform: uppercase; }
+    .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 60px; text-align: left; border-top: 2px solid #333; padding-top: 40px; }
+    .footer-grid h4 { color: var(--white); font-size: 20px; font-weight: 900; text-transform: uppercase; margin-bottom: 20px; }
+    .footer-grid p, .footer-grid a { color: #aaa; font-weight: 700; line-height: 1.8; display: block; margin-bottom: 10px; }
+    .footer-grid a:hover { color: var(--orange); text-decoration: underline; }
+    
+    .footer-bottom { border-top: 2px solid #333; padding-top: 40px; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+    .nitrome-logo { filter: grayscale(100%) brightness(200%); width: 80px; }
+    
+    .cart-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 90; opacity: 0; pointer-events: none; transition: 0.3s; }
+    .cart-overlay.active { opacity: 1; pointer-events: auto; }
+    
+    .cart-sidebar { position: fixed; top: 0; right: -450px; width: min(400px, 100%); height: 100vh; background: var(--white); border-left: 5px solid var(--ink); z-index: 100; box-shadow: -10px 0 0 rgba(0,0,0,0.1); transition: right 0.4s cubic-bezier(0.25, 1, 0.5, 1); display: flex; flex-direction: column; }
+    .cart-sidebar.open { right: 0; }
+    
+    .cart-header { padding: 25px; border-bottom: 4px solid var(--ink); display: flex; justify-content: space-between; align-items: center; background: var(--pink); }
+    .cart-header h2 { margin: 0; font-size: 24px; font-weight: 900; text-transform: uppercase; }
+    .close-cart { font-size: 30px; font-weight: 900; background: none; color: var(--ink); }
+    
+    .cart-items { flex-grow: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 15px; background: var(--cream); }
+    .cart-item { display: flex; gap: 15px; border: 3px solid var(--ink); background: var(--white); padding: 10px; border-radius: 8px; align-items: center; box-shadow: 4px 4px 0 var(--ink); }
+    .cart-item img { width: 60px; height: 60px; border-radius: 5px; border: 2px solid var(--ink); object-fit: cover; }
+    .cart-item-info h4 { margin: 0 0 5px; font-size: 16px; font-weight: 900; text-transform: uppercase; }
+    .cart-item-info p { margin: 0; font-weight: 900; color: var(--orange); }
+    .remove-btn { margin-left: auto; background: var(--ink); color: var(--white); font-weight: 900; padding: 5px 10px; border-radius: 5px; }
+    
+    .cart-footer { padding: 25px; border-top: 4px solid var(--ink); background: var(--white); }
+    .cart-total { display: flex; justify-content: space-between; font-size: 24px; font-weight: 900; margin-bottom: 20px; }
+    .btn-checkout { width: 100%; padding: 15px; background: var(--yellow); border: 3px solid var(--ink); font-size: 20px; font-weight: 900; text-transform: uppercase; box-shadow: 5px 5px 0 var(--ink); transition: 0.2s; border-radius: 8px; }
+    .btn-checkout:hover { transform: translate(-2px, -2px); box-shadow: 7px 7px 0 var(--ink); }
+
+    .flying-item { position: fixed; z-index: 9999; border-radius: 50%; border: 3px solid var(--ink); object-fit: cover; transition: all 0.7s cubic-bezier(0.25, 1, 0.5, 1); box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
+    
+    /* MODAL DE PAGO */
+    #checkoutOverlay { z-index: 110; display: none; }
+    #checkoutOverlay.active { display: block; }
+    .checkout-modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.9); background: var(--pink); border: 5px solid var(--ink); box-shadow: 15px 15px 0 var(--ink); padding: 40px; z-index: 120; width: min(90%, 500px); text-align: center; opacity: 0; pointer-events: none; transition: 0.3s; border-radius: 12px; }
+    .checkout-modal.active { opacity: 1; transform: translate(-50%, -50%) scale(1); pointer-events: auto; }
+    .checkout-modal h2 { font-size: 32px; font-weight: 900; margin-top: 0; color: var(--ink); text-transform: uppercase; text-shadow: 2px 2px 0 var(--white); }
+    .checkout-modal p { font-size: 18px; font-weight: 700; margin-bottom: 25px; line-height: 1.5; }
+    .checkout-modal button { background: var(--green); border: 3px solid var(--ink); padding: 12px 25px; font-size: 18px; font-weight: 900; text-transform: uppercase; box-shadow: 5px 5px 0 var(--ink); transition: 0.2s; border-radius: 8px; width: 100%; }
+    .checkout-modal button:hover { background: var(--yellow); transform: translate(-2px, -2px); box-shadow: 7px 7px 0 var(--ink); }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 60px; }
+      .product-grid { grid-template-columns: 1fr; }
+      nav { display: none; }
+      .floating-decor { font-size: 30px; }
+      .explosion-text { padding: 30px; margin: 0 15px; }
+      .inner-fruit { font-size: 45px !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Frutas generales del body -->
+  <div class="floating-decor f1">🍃</div>
+  <div class="floating-decor f2">🍓</div>
+  <div class="floating-decor f3">🌿</div>
+  <div class="floating-decor f4">🍌</div>
+  <div class="floating-decor f5">🍊</div>
+  <div class="floating-decor f6">🫐</div>
+
+  <div class="topline">Hay más de 67 mil personas ahora mismo pensando en helado</div>
+  
+  <header>
+    <a class="logo" href="#">bad ice<br><span>cream.</span></a>
+    <nav>
+      <a href="#menu">Menú</a>
+      <a href="#nosotros">Nosotros</a>
+    </nav>
+    <button class="nav-cta" id="openCartBtn">
+      MI ANTOJO <span class="cart-count" id="cartCountHeader">0</span>
+    </button>
+  </header>
+
+  <section class="hero">
+    <h1>El helado más fiel del mundo.</h1>
+    <p>Nunca te abandonaremos. Entrégate al antojo absoluto sin pensarlo dos veces.</p>
+    <a href="#menu" style="background: var(--ink); color: var(--white); font-weight: 900; font-size: 24px; padding: 15px 40px; border: 4px solid var(--ink); box-shadow: 8px 8px 0 var(--pink); text-transform: uppercase;">Ir al menú ↓</a>
+  </section
